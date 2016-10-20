@@ -1,0 +1,15 @@
+[
+	{
+		"name" : "Regene Notice",
+		"file" : "regenenotice",
+		"extension" : "ipf",
+		"fileVersion" : "v1.0.0",
+		"releaseTag" : "RegeneNotice",
+		"unicode" : "⛄",
+		"description" : "SP自然回復可能になったら、頭上にアイコンを出して通知するよ",
+		"tags" : [
+			"sp",
+			"timer"
+		]
+	}
+]

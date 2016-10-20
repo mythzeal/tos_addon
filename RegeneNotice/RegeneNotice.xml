@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by MinstFaith (EMBRACE) -->
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by imc (imc) -->
+<uiframe name="regenenotice" x="0" y="0" width="140" height="100">
+    <frame title="REGENE" layout_gravity="center center" margin="0 -160 0 0"/>
+    <draw drawtitlebar="false" drawframe="false"/>
+    <input moveintitlebar="false" hittestframe="false"/>
+    <layer layerlevel="10"/>
+    <option closebutton="false" hideable="false" visible="true" alwaysVisible="true"/>
+    <controls>
+        <picture name="icon" rect="0 0 70 70" margin="0 0 0 0" layout_gravity="center top" image="emoticon_0010"/>
+        <richtext name="txt" rect="0 0 140 32" layout_gravity="center bottom" caption="0000" fixwidth="true" hittest="false" resizebytext="false" textalign="left center"/>
+        <timer name="addontimer" rect="0 0 10 10"/>
+    </controls>
+</uiframe>
