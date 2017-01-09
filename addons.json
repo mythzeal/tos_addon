@@ -1,15 +1,52 @@
 [
 	{
+		"name" : "Dur Notice",
+		"file" : "durnotice",
+		"extension" : "ipf",
+		"fileVersion" : "v1.0.0",
+		"releaseTag" : "RegeneNotice",
+		"unicode" : "⛄",
+		"description" : "装備の耐久値を表示するよ",
+		"tags" : [
+			"durability",
+			"ui"
+		]
+	},
+	{
+		"name" : "Now Playing JP",
+		"file" : "nowplayingjp",
+		"extension" : "ipf",
+		"fileVersion" : "v1.0.1",
+		"releaseTag" : "Raima",
+		"unicode" : "⛄",
+		"description" : "曲名表示アドオン 'NowPlaying' の不具合改善版だよ",
+		"tags" : [
+			"music"
+		]
+	},
+	{
 		"name" : "Regene Notice",
 		"file" : "regenenotice",
 		"extension" : "ipf",
 		"fileVersion" : "v1.0.0",
-		"releaseTag" : "RegeneNotice",
+		"releaseTag" : "Raima",
 		"unicode" : "⛄",
 		"description" : "SP自然回復可能になったら、頭上にアイコンを出して通知するよ",
 		"tags" : [
 			"sp",
 			"timer"
+		]
+	},
+	{
+		"name" : "Remove Pump Recipe",
+		"file" : "remove_pump_recipe",
+		"extension" : "ipf",
+		"fileVersion" : "v1.0.0",
+		"releaseTag" : "Raima",
+		"unicode" : "⛄",
+		"description" : "アイテム取得時に表示されるレシピ(pump recipe)を非表示にするよ",
+		"tags" : [
+			"ui"
 		]
 	}
 ]
