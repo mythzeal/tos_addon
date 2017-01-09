@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uiframe name="durnotice" x="0" y="0" width="224" height="456">
+	<frame snapclient="true" snapframe="true" layout_gravity="right top" margin="0 32 392 0"/>
+	<option visible="true" alwaysVisible="false" closebutton="false" useimageitem="true" autoopen="true" hideable="true"/>
+	<input hittest="true" movable="true" moveintitlebar="false" hittestframe="true"/>
+	<layer layerlevel="70"/>
+	<draw drawtitlebar="false" drawframe="true"/>
+	<skin frameskin="box_glass"/>
+	<controls>
+      	<slot name="sRH" rect="16 16 40 40" skin="rh"/>
+		<gauge name="gRH" rect="72 20 128 36" skin="gauge_old"/>
+		<richtext name="tRH" rect="72 20 128 36" textalign="center center" />
+		<slot name="sLH" rect="16 64 40 40" skin="lh"/>
+		<gauge name="gLH" rect="72 68 128 36" skin="gauge_old"/>
+		<richtext name="tLH" rect="72 68 128 36" textalign="center center" />
+		<slot name="sSHIRT" rect="16 112 40 40" skin="shirt"/>
+		<gauge name="gSHIRT" rect="72 116 128 36" skin="gauge_old"/>
+		<richtext name="tSHIRT" rect="72 116 128 36" textalign="center center" />
+		<slot name="sGLOVES" rect="16 160 40 40" skin="gloves"/>
+		<gauge name="gGLOVES" rect="72 164 128 36" skin="gauge_old"/>
+		<richtext name="tGLOVES" rect="72 164 128 36" textalign="center center" />
+		<slot name="sPANTS" rect="16 208 40 40" skin="pants"/>
+		<gauge name="gPANTS" rect="72 212 128 36" skin="gauge_old"/>
+		<richtext name="tPANTS" rect="72 212 128 36" textalign="center center" />
+		<slot name="sBOOTS" rect="16 256 40 40" skin="boots"/>
+		<gauge name="gBOOTS" rect="72 260 128 36" skin="gauge_old"/>
+		<richtext name="tBOOTS" rect="72 260 128 36" textalign="center center" />
+		<slot name="sRING1" rect="16 304 40 40" skin="ring"/>
+		<gauge name="gRING1" rect="72 308 128 36" skin="gauge_old"/>
+		<richtext name="tRING1" rect="72 308 128 36" textalign="center center" />
+		<slot name="sRING2" rect="16 352 40 40" skin="ring"/>
+		<gauge name="gRING2" rect="72 356 128 36" skin="gauge_old"/>
+		<richtext name="tRING2" rect="72 356 128 36" textalign="center center" />
+		<slot name="sNECK" rect="16 400 40 40" skin="necklace"/>
+		<gauge name="gNECK" rect="72 404 128 36" skin="gauge_old"/>
+		<richtext name="tNECK" rect="72 404 128 36" textalign="center center" />
+	</controls>
+</uiframe>
