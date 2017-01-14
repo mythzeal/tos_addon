@@ -13,6 +13,18 @@
 		]
 	},
 	{
+		"name" : "mzMusic",
+		"file" : "mzmusic",
+		"extension" : "ipf",
+		"fileVersion" : "v1.0.0",
+		"releaseTag" : "Raima",
+		"unicode" : "⛄",
+		"description" : "現在のBGMを変更できるよ",
+		"tags" : [
+			"music"
+		]
+	},
+	{
 		"name" : "Now Playing JP",
 		"file" : "nowplayingjp",
 		"extension" : "ipf",
