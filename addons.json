@@ -53,7 +53,7 @@
 		"name" : "Remove Pump Recipe",
 		"file" : "remove_pump_recipe",
 		"extension" : "ipf",
-		"fileVersion" : "v1.0.0",
+		"fileVersion" : "v1.1.0",
 		"releaseTag" : "Raima",
 		"unicode" : "⛄",
 		"description" : "アイテム取得時に表示されるレシピ(pump recipe)を非表示にするよ",
