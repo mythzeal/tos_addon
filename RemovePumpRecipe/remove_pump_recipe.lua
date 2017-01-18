@@ -1,4 +1,4 @@
---v1.0.1
+--v1.1.0
 
 local cwAPI = require("cwapi");
 local acutil = require("acutil");
@@ -60,18 +60,18 @@ function setPumpRecipe(flag)
 
 	if flag then
 		PUMP_RECIPE_OPEN = PUMP_RECIPE_OPEN_DUMMY;
+		PUMP_COLLECTION_ON_INIT = PUMP_RECIPE_OPEN_DUMMY;
 		msg = "[RemovePR] set enabled. (hide recipe)";
 	else
 		PUMP_RECIPE_OPEN = PUMP_RECIPE_OPEN_OLD;
+		PUMP_COLLECTION_ON_INIT = PUMP_COLLECTION_ON_INIT_OLD;
 		msg = "[RemovePR] set disabled. (show recipe)";
 	end
 
 	log(msg);
 end
 
-function PUMP_RECIPE_OPEN_DUMMY()
-
-end
+function PUMP_RECIPE_OPEN_DUMMY() end
 
 local isLoaded = false;
 
@@ -89,6 +89,11 @@ function REMOVE_PUMP_RECIPE_ON_INIT(addon, frame)
 	if PUMP_RECIPE_OPEN_OLD == nil then
 		-- backup origin function
 		PUMP_RECIPE_OPEN_OLD = PUMP_RECIPE_OPEN;
+	end
+
+	if PUMP_COLLECTION_ON_INIT_OLD == nil then
+		-- backup origin function
+		PUMP_COLLECTION_ON_INIT_OLD = PUMP_COLLECTION_ON_INIT;
 	end
 
 	acutil.slashCommand("/removepr", checkCommand);
