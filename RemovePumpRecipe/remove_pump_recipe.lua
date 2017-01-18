@@ -60,11 +60,11 @@ function setPumpRecipe(flag)
 
 	if flag then
 		PUMP_RECIPE_OPEN = PUMP_RECIPE_OPEN_DUMMY;
-		PUMP_COLLECTION_ON_INIT = PUMP_RECIPE_OPEN_DUMMY;
+		ON_PUMP_COLLECTION_OPEN = PUMP_RECIPE_OPEN_DUMMY;
 		msg = "[RemovePR] set enabled. (hide recipe)";
 	else
 		PUMP_RECIPE_OPEN = PUMP_RECIPE_OPEN_OLD;
-		PUMP_COLLECTION_ON_INIT = PUMP_COLLECTION_ON_INIT_OLD;
+		ON_PUMP_COLLECTION_OPEN = ON_PUMP_COLLECTION_OPEN_OLD;
 		msg = "[RemovePR] set disabled. (show recipe)";
 	end
 
@@ -90,13 +90,19 @@ function REMOVE_PUMP_RECIPE_ON_INIT(addon, frame)
 		-- backup origin function
 		PUMP_RECIPE_OPEN_OLD = PUMP_RECIPE_OPEN;
 	end
-
+--[[
 	if PUMP_COLLECTION_ON_INIT_OLD == nil then
 		-- backup origin function
 		PUMP_COLLECTION_ON_INIT_OLD = PUMP_COLLECTION_ON_INIT;
 	end
+]]
+	if ON_PUMP_COLLECTION_OPEN_OLD == nil then
+		-- backup origin function
+		ON_PUMP_COLLECTION_OPEN_OLD = ON_PUMP_COLLECTION_OPEN;
+	end
 
 	acutil.slashCommand("/removepr", checkCommand);
+	acutil.slashCommand("/rpr", checkCommand);
 	cwAPI.json.save(options, "remove_pump_recipe");
 
 	isLoaded = true;
