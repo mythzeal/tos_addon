@@ -16,7 +16,7 @@
 		"name" : "mzMusic",
 		"file" : "mzmusic",
 		"extension" : "ipf",
-		"fileVersion" : "v1.0.0",
+		"fileVersion" : "v1.0.1",
 		"releaseTag" : "Raima",
 		"unicode" : "⛄",
 		"description" : "現在のBGMを変更できるよ",

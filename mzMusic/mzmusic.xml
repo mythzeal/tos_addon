@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<uiframe name="mzmusic" x="0" y="0" width="400" height="104">
+<uiframe name="mzmusic" x="0" y="0" width="450" height="100">
 	<frame snapclient="true" snapframe="true" layout_gravity="right top" margin="0 32 392 0"/>
 	<option visible="true" alwaysVisible="false" closebutton="false" useimageitem="true" autoopen="true" hideable="true"/>
 	<input hittest="true" movable="true" moveintitlebar="false" hittestframe="true"/>
@@ -8,7 +8,7 @@
 	<skin frameskin="wiki_add"/>
 	<controls>
 		<richtext name="tTitle" rect="32 28 80 24" caption="{#BBAA44}{ol}{ds}{b}{s16}PlayList:" />
-		<droplist name="dList" rect="112 16 248 36" layout_gravity="left top" frametextalign="left" textalign="left center" textoffset="10 8" visibleline="11" skin="droplist_normal2"/>
-		<richtext name="tNP" rect="28 64 360 24" />
+		<droplist name="dPlayList" rect="112 16 240 32" layout_gravity="left top" frametextalign="left" textalign="left center" textoffset="10 8" visibleline="11" skin="droplist_normal2"/>
+		<richtext name="tNP" rect="28 64 440 24" />
 	</controls>
 </uiframe>
