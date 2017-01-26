@@ -97,13 +97,13 @@ local function CheckCommand(words)
 		return;
 	end
 
-	if cmd == "pop" then
+	if cmd == "popup" then
 		local cmd2 = table.remove(words, 1);
 		local num = tonumber(cmd2);
 		if type(num) ~= "number" then
 			return;
 		end
-		if num > 2 or num <= 0 then
+		if num > 2 or num < 0 then
 			num = 2;
 		end
 		op.popup = num;
@@ -126,7 +126,7 @@ local function CheckCommand(words)
 		if type(num) ~= "number" then
 			return;
 		end
-		if num > 1 or num <= 0 then
+		if num > 1 or num < 0 then
 			num = 1;
 		end
 		op.disp = num;
@@ -200,7 +200,7 @@ function TOKENNOTICE_STATE(frame, msg, argStr, argNum)
 	if argNum ~= ITEM_TOKEN or "NO" == argStr then
 		txt:SetText(tokenImg .. "{@st42} 期限切れだよ");
 
-		if not isNoticed then
+		if isNoticed then
 			return;
 		end
 
