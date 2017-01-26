@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uiframe name="tokennotice" x="0" y="0" width="220" height="56">
+	<frame snapclient="true" snapframe="true" layout_gravity="right top" margin="0 32 392 0"/>
+	<option visible="true" alwaysVisible="false" closebutton="false" useimageitem="true" autoopen="true" hideable="true"/>
+	<input hittest="true" movable="true" moveintitlebar="false" hittestframe="true"/>
+	<layer layerlevel="70"/>
+	<draw drawtitlebar="false" drawframe="true"/>
+	<skin frameskin="preview"/>
+	<controls>
+		<richtext name="txt" rect="16 16 180 24" layout_gravity="left top"/>
+	</controls>
+</uiframe>

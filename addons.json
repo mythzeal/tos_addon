@@ -31,7 +31,7 @@
 		"fileVersion" : "v1.0.1",
 		"releaseTag" : "Raima",
 		"unicode" : "⛄",
-		"description" : "曲名表示アドオン 'NowPlaying' の不具合改善版だよ",
+		"description" : "[そろそろ消すよ] 曲名表示アドオン 'NowPlaying' の不具合改善版だよ",
 		"tags" : [
 			"music"
 		]
@@ -58,6 +58,19 @@
 		"unicode" : "⛄",
 		"description" : "アイテム取得時に表示されるレシピ(pump recipe)を非表示にするよ",
 		"tags" : [
+			"ui"
+		]
+	},
+	{
+		"name" : "Token Notice",
+		"file" : "tokennotice",
+		"extension" : "ipf",
+		"fileVersion" : "v1.0.0",
+		"releaseTag" : "Raima",
+		"unicode" : "⛄",
+		"description" : "ログイン時にトークン残り日数と無料TPをお知らせするよ",
+		"tags" : [
+			"token",
 			"ui"
 		]
 	}
