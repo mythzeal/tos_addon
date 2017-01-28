@@ -3,7 +3,7 @@
 		"name" : "Dur Notice",
 		"file" : "durnotice",
 		"extension" : "ipf",
-		"fileVersion" : "v1.0.0",
+		"fileVersion" : "v1.1.0",
 		"releaseTag" : "Raima",
 		"unicode" : "⛄",
 		"description" : "装備の耐久値を表示するよ",
