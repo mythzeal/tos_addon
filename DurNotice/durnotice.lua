@@ -2,9 +2,12 @@
 
 local acutil = require("acutil");
 local log = acutil.log;
+local slash = acutil.slashCommand;
+local floor = math.floor;
+local format = string.format;
+local cast = tolua.cast;
 
 -- util
-
 local path = "../addons/durnotice/settings.json";
 
 local function Save(table)
@@ -40,7 +43,7 @@ local isLoaded = false;
 
 local function GetColor(pt, max, rev)
 
-	local col = math.floor(pt * max);
+	local col = floor(pt * max);
 
 	if col < 0 or col > max then
 		if rev then
@@ -60,34 +63,36 @@ local function GET_RGB(dur, maxDur)
 	local g = GetColor(pt, 255);
 	local b = GetColor(pt, 64);
 	
-	return string.format("%02x%02x%02x", r, g, b);
+	return format("FF%02x%02x%02x", r, g, b);
 end
 
+local GetEquipItemList = session.GetEquipItemList;
 local function CHECK_DUR(frame, eqType)
 
-	local eqlist = session.GetEquipItemList();
+	local eqlist = GetEquipItemList();
 
-	local slot = tolua.cast(frame:GetChild("s" .. eqType), "ui::CSlot");
-	local gauge = tolua.cast(frame:GetChild("g" .. eqType), "ui::CGauge");
-    local text = tolua.cast(frame:GetChild("t" .. eqType), "ui::CRichText");
+	local slot = cast(frame:GetChild("s" .. eqType), "ui::CSlot");
+	local gauge = cast(frame:GetChild("g" .. eqType), "ui::CGauge");
+    local text = cast(frame:GetChild("t" .. eqType), "ui::CRichText");
 
 	local num = item.GetEquipSpotNum(eqType)
 	local eq = eqlist:Element(num);
+	local eqtype = eq.type;
+	local spot = eq.equipSpot;
 
-	if eq.type ~= item.GetNoneItem(eq.equipSpot) then
+	if eqtype ~= item.GetNoneItem(spot) then
 		local icon = CreateIcon(slot);
 		local obj = GetIES(eq:GetObject());
+		local dur = obj.Dur;
+		local max = obj.MaxDur;
 		local img = GET_ITEM_ICON_IMAGE(obj);
-		icon:Set(img, 'Item', eq.type, eq.equipSpot, eq:GetIESID());
+		icon:Set(img, 'Item', eqtype, spot, eq:GetIESID());
 
-		--local arg1 = math.floor(obj.Dur/100);
-		--local arg2 = math.floor(obj.MaxDur/100);
-		local col = GET_RGB(obj.Dur, obj.MaxDur);
-		gauge:SetColorTone("FF" .. col);
-		gauge:SetPoint(obj.Dur, obj.MaxDur);
+		gauge:SetColorTone(GET_RGB(dur, max));
+		gauge:SetPoint(dur, max);
 		gauge:ShowWindow(1);
 		
-        text:SetText("{#BBAA44}{ol}{ds}{b}{s15}" .. obj.Dur .. " / " .. obj.MaxDur);
+		text:SetText("{#DDAA55}{ol}{b}{s13}" .. dur .. " / " .. max);
         text:ShowWindow(1);
 	else
 		slot:ClearIcon();
@@ -133,7 +138,7 @@ local function checkCommand(words)
 		frame:SetMargin(0, 32, 392, 0);
 		frame:SetGravity(1, 0);
 
-		frame = tolua.cast(frame, "ui::CFrame");
+		frame = cast(frame, "ui::CFrame");
 		frame:SetLayerLevel(op.layer);
 		Save(op);
 		return;
@@ -159,8 +164,8 @@ local function checkCommand(words)
 		if type(num) ~= "number" then
 			return;
 		end
-		
-		frame = tolua.cast(frame, "ui::CFrame");
+
+		frame = cast(frame, "ui::CFrame");
 		frame:SetLayerLevel(num);
 		Save(op);
 		return;
@@ -190,8 +195,8 @@ function DURNOTICE_ON_INIT(addon, frame)
 	addon:RegisterOpenOnlyMsg('MYPC_CHANGE_SHAPE', 'UPDATE_DUR');
 	addon:RegisterMsg('GAME_START', 'UPDATE_DUR');
 
-	acutil.slashCommand("/durNotice", checkCommand);
-	acutil.slashCommand("/dn", checkCommand);
+	slash("/durNotice", checkCommand);
+	slash("/dn", checkCommand);
 
 	if not isLoaded then
 		isLoaded = true;
@@ -205,6 +210,6 @@ function DURNOTICE_ON_INIT(addon, frame)
 
     frame:SetAlpha(op.alpha);
 
-	frame = tolua.cast(frame, "ui::CFrame");
+	frame = cast(frame, "ui::CFrame");
 	frame:SetLayerLevel(op.layer);
 end
