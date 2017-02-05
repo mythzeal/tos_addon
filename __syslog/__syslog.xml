@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uiframe name="__syslog" x="0" y="0" width="280" height="472">
+    <frame layout_gravity="center center"/>
+	<input hittest="true" movable="true" moveintitlebar="false" hittestframe="true"/>
+    <option visible="true" alwaysVisible="false" closebutton="false" useimageitem="true" autoopen="true" hideable="true"/>
+    <draw drawtitlebar="false" drawframe="true"/>
+    <skin frameskin="chat_window"/>
+    <layer layerlevel="70"/>
+    <controls>
+        <textview name="log" rect="0 36 280 436" transparent="false"/>
+		<button name="show" rect="4 4 64 32" caption="{s14}{ol}{b}Show" LBtnUpScp="SYSLOG_TOGGLE_SHOW"/>
+        <button name="clear" rect="212 4 64 32" caption="{s14}{ol}{b}Clear" LBtnUpScp="SYSLOG_CLEAR"/>
+    </controls>
+</uiframe>
