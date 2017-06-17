@@ -13,6 +13,19 @@
 		]
 	},
 	{
+		"name" : "mzDlgTalk",
+		"file" : "mzdlgtalk",
+		"extension" : "ipf",
+		"fileVersion" : "v1.0.0",
+		"releaseTag" : "Zemyna",
+		"unicode" : "⛄",
+		"description" : "単体では動作しないよ、擬似的なNPC会話を実現するよ",
+		"tags" : [
+			"ui",
+			"joke"
+		]
+	},
+	{
 		"name" : "mzMusic",
 		"file" : "mzmusic",
 		"extension" : "ipf",
@@ -31,7 +44,7 @@
 		"fileVersion" : "v1.0.1",
 		"releaseTag" : "Raima",
 		"unicode" : "⛄",
-		"description" : "[そろそろ消すよ] 曲名表示アドオン 'NowPlaying' の不具合改善版だよ",
+		"description" : "曲名表示アドオン 'NowPlaying' の不具合改善版だよ",
 		"tags" : [
 			"music"
 		]
@@ -72,6 +85,19 @@
 		"tags" : [
 			"token",
 			"ui"
+		]
+	},
+	{
+		"name" : "Unbreakable",
+		"file" : "unbreakable",
+		"extension" : "ipf",
+		"fileVersion" : "v1.0.0",
+		"releaseTag" : "Zemyna",
+		"unicode" : "⛄",
+		"description" : "【mzDlgTalk対応】ポテンシャルが0の装備を叩けなくするよ",
+		"tags" : [
+			"ui",
+			"moru"
 		]
 	}
 ]
