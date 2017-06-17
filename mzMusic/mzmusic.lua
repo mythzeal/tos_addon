@@ -24,18 +24,18 @@ local function __ls(x, disp)
   return (x * 2^disp) % 2^32;
 end
 
-function __xor(x, y)
+local function __xor(x, y)
 	local z = 0;
 	for i = 0, 31 do
-		if (x % 2 == 0) then		-- x had a '0' in bit i
-			if ( y % 2 == 1) then	-- y had a '1' in bit i
+		if (x % 2 == 0) then
+			if ( y % 2 == 1) then
 				y = y - 1;
-				z = z + 2 ^ i;		-- set bit i of z to '1' 
+				z = z + 2 ^ i;
 			end
-		else						-- x had a '1' in bit i
+		else
 			x = x - 1;
-			if (y % 2 == 0) then	-- y had a '0' in bit i
-				z = z + 2 ^ i;		-- set bit i of z to '1' 
+			if (y % 2 == 0) then
+				z = z + 2 ^ i;
 			else
 				y = y - 1;
 			end
@@ -47,25 +47,25 @@ function __xor(x, y)
 end
 
 xors = {
-  x = 123456789,
-  y = 362436069,
-  z = 521288629,
-  w = 88675123
+	x = 123456789,
+	y = 362436069,
+	z = 521288629,
+	w = 88675123
 };
 
 function xors.seed(s)
-  xors.w = s;
+	xors.w = floor(s);
 end
 
 function xors.__rand()
-  --local t = xors.x ^ (xors.x << 11);
-  local t = __xor(xors.x, __ls(xors.x, 11));
-  xors.x = xors.y;
-  xors.y = xors.z;
-  xors.z = xors.w;
-  --return xors.w = (xors.w^(xors.w>>>19))^(t^(t>>>8));
-  xors.w = __xor(__xor(xors.w, __rs(xors.w, 19)), __xor(t, __rs(t, 8)));
-  return xors.w;
+	--local t = xors.x ^ (xors.x << 11);
+	local t = __xor(xors.x, __ls(xors.x, 11));
+	xors.x = xors.y;
+	xors.y = xors.z;
+	xors.z = xors.w;
+	--return xors.w = (xors.w^(xors.w>>>19))^(t^(t>>>8));
+	xors.w = __xor(__xor(xors.w, __rs(xors.w, 19)), __xor(t, __rs(t, 8)));
+	return xors.w;
 end
 
 function xors.rand(a, b)
@@ -373,11 +373,7 @@ function MZMUSIC_SET_KEPA_BGM()
         {'f_gele', 7500},
         {'c_guild', 10000},
     };
---[[
-    local list = {
-        {'f_gele', 10000},
-    };
-]]
+
 	local _r = xors.rand(1, 10000);
 	--log("xors:" .. _r);
 
@@ -390,10 +386,7 @@ function MZMUSIC_SET_KEPA_BGM()
     end
 
 	if mapClsName == "f_gele_kepa_event" then
-		--MZMUSIC_PLAY("m_boss_scenario2");
-		--MZMUSIC_PLAY(list[result][1]);
 	--elseif mapClsName == "c_orsha" or mapClsName == "f_siauliai_west" then
-		--MZMUSIC_PLAY("m_boss_scenario");
 		MZMUSIC_PLAY(list[result][1]);
 
 		if list[result][1] == "f_gele" then
@@ -473,7 +466,7 @@ function MZMUSIC_ON_INIT(addon, frame)
 		LOAD_SETTINGS();
 		log("[mzMusic] loaded.");
 		xors.seed(os.clock());
-		for i = 1, 48 do xors.rand(); end
+		for i = 1, 40 do xors.rand(); end
 	end
 
 	if op.moved then

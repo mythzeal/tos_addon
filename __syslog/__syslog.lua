@@ -41,10 +41,13 @@ function SYSLOG_DRAG_STOP()
 end
 
 CHAT_SYSTEM = function(msg)
+--[[
 	if g_txt == nil then
 		g_txt = tolua.cast(ui.GetFrame("__syslog"):GetChild("log"), "ui::CTextView");
 	end
-	g_txt:AddText(msg, "white_14_ol");
+]]
+	local txt = tolua.cast(ui.GetFrame("__syslog"):GetChild("log"), "ui::CTextView");
+	txt:AddText(msg, "white_14_ol");
 end
 
 function SYSLOG_TOGGLE_FRAME()
@@ -71,22 +74,12 @@ end
 local isLoaded = false;
 function __SYSLOG_ON_INIT(addon, frame)
 
-    frame:SetEventScript(ui.LBUTTONUP, "SYSLOG_DRAG_STOP");
 	acutil.slashCommand("/log", SYSLOG_TOGGLE_FRAME);
-	--CLEAR_CONSOLE();
-
-	--frame:Resize(280, 472);
+    frame:SetEventScript(ui.LBUTTONUP, "SYSLOG_DRAG_STOP");
 	frame:SetAlpha(50);
-
-	--local clear = frame:GetChild("clear");
-	--clear:SetOffset(212, 4);
-	--clear:Resize(64, 32);
-	--clear:SetText("{s14}{ol}{b}Clear");
 
 	local txt = frame:GetChild("log");
 	txt:SetAlpha(80);
-	--txt:SetOffset(0, 36);
-	--txt:Resize(280, 436);
 
     g_frame = frame;
     g_txt = tolua.cast(txt, "ui::CTextView");
@@ -95,6 +88,11 @@ function __SYSLOG_ON_INIT(addon, frame)
 		isLoaded = true;
 		LOAD_SETTINGS();
 		log("[syslog] loaded.");
+	end
+
+	if not op.show then
+		g_frame:Resize(280, 36);
+		g_txt:ShowWindow(0);
 	end
 
 	g_frame:SetPos(op.pos.x, op.pos.y);
