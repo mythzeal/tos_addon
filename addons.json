@@ -78,10 +78,10 @@
 		"name" : "Token Notice",
 		"file" : "tokennotice",
 		"extension" : "ipf",
-		"fileVersion" : "v1.0.0",
-		"releaseTag" : "Raima",
+		"fileVersion" : "v1.1.0",
+		"releaseTag" : "Zemyna",
 		"unicode" : "⛄",
-		"description" : "ログイン時にトークン残り日数と無料TPをお知らせするよ",
+		"description" : "【mzDlgTalk対応】ログイン時にトークン残り日数と無料TPをお知らせするよ",
 		"tags" : [
 			"token",
 			"ui"
