@@ -1,7 +1,25 @@
---v1.0.0
+--v1.1.0
 local acutil = require("acutil");
 local log = acutil.log;
 local floor = math.floor;
+local mod = math.mod;
+--local random = math.random;
+
+local random = function(min, max)
+	local _r = math.random(min, max);
+	--log(_r);
+	--log(math.random(5));
+	--log(math.random(5));
+	return _r;
+end;
+
+--[[
+local random = function(min, max)
+	local _r = mod(floor(os.clock() * 100), max) + min;
+	log(_r);
+	return _r;
+end;
+]]
 
 -- util json
 local path = "../addons/tokennotice/settings.json";
@@ -37,8 +55,6 @@ end
 
 -- const & var
 local isLoaded = false;
-local startSec = 0;
-local remainSec = 0;
 local tokenImg;
 
 -- 0:"off", 1:"on"
@@ -207,29 +223,22 @@ function TOKENNOTICE_STATE(frame, msg, argStr, argNum)
 		isNoticed = true;
 		if op.popup ~= 0 then
 			local medtxt = GetMedalText();
-			ui.MsgBox(tokenImg .. "{@st41}期限切れてるよ！{nl} {nl}" ..  medtxt, "None", "None");
+			local yesScp = string.format("TOKENNOTICE_DLGSHOW(%d)", 0);
+			ui.MsgBox(tokenImg .. "{@st41}期限切れてるよ！{nl} {nl}" ..  medtxt, yesScp, "None");
 		end
 		return;
 	end
 
 	local sysTime = geTime.GetServerSystemTime();
 	local endTime = session.loginInfo.GetTokenTime();
-	local difSec = imcTime.GetDifSec(endTime, sysTime);
-    startSec = imcTime.GetAppTime();
-    remainSec = difSec;
+	local remainSec = imcTime.GetDifSec(endTime, sysTime);
 
-    --------
-
-	local _elapsedSec = imcTime.GetAppTime() - startSec;
-	local _startSec = remainSec;
-	_startSec = _startSec - _elapsedSec;
-
-	if 0 > _startSec then
+	if 0 > remainSec then
 		txt:SetText(tokenImg .. "{@st42} 期限切れだよ");
 		return 0;
 	end
 
-	local timeTxt = _GET_TIME_TXT(_startSec);
+	local timeTxt = _GET_TIME_TXT(remainSec);
 	txt:SetText(tokenImg .. "{@st42} あと " .. timeTxt .. " くらい");
 
 	if isNoticed then
@@ -239,7 +248,10 @@ function TOKENNOTICE_STATE(frame, msg, argStr, argNum)
 	isNoticed = true;
 	if op.popup == 2 then
 		local medtxt = GetMedalText();
-    	ui.MsgBox(tokenImg .. "{@st41} あと " .. timeTxt .. " くらい{nl} {nl}" .. medtxt, "None", "None");
+		local yesScp = string.format("TOKENNOTICE_DLGSHOW(%d)", remainSec);
+		--log("random test laoding:" .. math.random(5));
+		math.randomseed(floor(os.clock()));
+		ui.MsgBox(tokenImg .. "{@st41} あと " .. timeTxt .. " くらい{nl} {nl}" .. medtxt, yesScp, "None");
 	end
 
 	return 1;
@@ -253,6 +265,9 @@ function TOKENNOTICE_ON_INIT(addon, frame)
 
 	acutil.slashCommand("/tn", CheckCommand);
     acutil.slashCommand("/token", CheckCommand);
+
+	-- debug
+	--isNoticed = false;
 
 	if not isLoaded then
 		isLoaded = true;
@@ -272,4 +287,138 @@ function TOKENNOTICE_ON_INIT(addon, frame)
 	if op.disp == 0 then
 		frame:ShowWindow(0);
 	end
+end
+
+-- dialog talk settings
+mzDlgTalk = mzDlgTalk or {};
+mzDlgTalk.__talks = mzDlgTalk.__talks or {};
+
+local __talks = mzDlgTalk.__talks;
+local talkNames = {};
+for i = 1, 12 do
+	talkNames[i] = "tn" .. i;
+end
+
+local function SetTextToken(time)
+	__talks[talkNames[1]] = {
+		[1] = {img = "hauberk", title = "魔将ホーバーク", text = "戻ったか、啓示者よ。"},
+		[2] = {img = "hauberk", title = "魔将ホーバーク", text = "たまには休憩も大事だぞ。"},
+		[3] = {img = "hauberk", title = "魔将ホーバーク", text = "では、また会おう。"},
+	};
+
+	__talks[talkNames[2]] = {
+		[1] = {img = "hauberk_dark", title = "魔将ホーバーク", text = "戻ったか、啓示者よ。"},
+		[2] = {img = "hauberk_dark", title = "魔将ホーバーク", text = "ここでは誰も信じてはならぬ。女神も、お前自身も。"},
+		[3] = {img = "vakarine", title = "女神ヴァカリネ", text = "・・・。"},
+		[4] = {img = "hauberk_dark", title = "魔将ホーバーク", text = "・・・。"},
+		[5] = {img = "hauberk_dark", title = "魔将ホーバーク", text = "さらばだ、啓示者よ。"},
+		[6] = {img = "hauberk_dark", title = "魔将ホーバーク", text = "(逃走)"},
+		[7] = {img = "vakarine", title = "女神ヴァカリネ", text = "まてこらー！"},
+	};
+
+	__talks[talkNames[3]] = {
+		[1] = {img = "raima", title = "女神ライマ", text = "よくぞ戻られました、救済者よ。"},
+		[2] = {img = "raima", title = "女神ライマ", text = "次のレベルに上がるまでの経験値は・・・{nl}おや、これは違う世界の作法でしたね。"},
+		[3] = {img = "raima", title = "女神ライマ", text = "それでは、良い旅を。"},
+	};
+
+	__talks[talkNames[4]] = {
+		[1] = {img = "raima2", title = "女神ライマ", text = "・・・。"},
+		[2] = {img = "giltine", title = "魔神ギルティネ", text = "無様だな、ライマ。"},
+		[3] = {img = "giltine", title = "魔神ギルティネ", text = "おや、自慢の翼はどうした？{nl}まさか腹が減ったからといって、食べてしまったのか？"},
+		[4] = {img = "giltine", title = "魔神ギルティネ", text = "ふふ、冗談だ。"},
+		[5] = {img = "raima2", title = "女神ライマ", text = "・・・。"},
+		[6] = {img = "raima2", title = "女神ライマ", text = "(紅潮している)"},
+		[7] = {img = "giltine", title = "魔神ギルティネ", text = "・・・えっ？"},
+		[8] = {img = "giltine", title = "魔神ギルティネ", text = "(青ざめる)"},
+	};
+
+	__talks[talkNames[5]] = {
+		[1] = {img = "gesti", title = "魔王ジェスティ", text = "遅かったな、啓示者。"},
+		[2] = {img = "gesti", title = "魔王ジェスティ", text = "どうした、かかってこないのか？"},
+		[3] = {img = "gesti", title = "魔王ジェスティ", text = "ふん、臆病者め。"},
+	};
+
+	__talks[talkNames[6]] = {
+		[1] = {img = "gesti", title = "魔王ジェスティ", text = "遅かったな、啓示者。"},
+		[2] = {img = "gesti", title = "魔王ジェスティ", text = "どうした、かかってこないのか？"},
+		[3] = {img = "gesti", title = "魔王ジェスティ", text = "ふん、臆病者め。"},
+		[4] = {img = "dalia", title = "女神ダリア", text = "・・・。"},
+		[5] = {img = "gesti", title = "魔王ジェスティ", text = "あっ・・・。{nl}きょ、今日のところは見逃してやろう。{nl}感謝するがいい。"},
+		[6] = {img = "dalia", title = "女神ダリア", text = "逃しませんよ？{nl}さぁ、共に爆ぜましょう。"},
+		[7] = {img = "gesti", title = "魔王ジェスティ", text = "ちょ、馬鹿、やめ・・・。"},
+		[8] = {img = "dalia", title = "女神ダリア", text = "(爆発)"},
+		[9] = {img = "gesti", title = "魔王ジェスティ", text = "(爆発)"},
+		[10]= {img = "lutha", title = "クポル メデナ", text = "ダリア様・・・。"},
+	};
+
+	if time ~= nil and time >= 0 then
+		__talks[talkNames[7]] = {
+			[1] = {img = "lexiper", title = "レキシファー", text = "貴様、啓示者か。"},
+			[2] = {img = "lexiper", title = "レキシファー", text = "王陵では世話になったな。だが・・・。"},
+			[3] = {img = "lexiper", title = "レキシファー", text = "・・・今は任務中だ。{nl}生憎、今はお前の相手をしている暇はない。"},
+			[4] = {img = "", title = "啓示者ちゃん", text = "うぅ～い？"},
+			[5] = {img = "lexiper", title = "レキシファー", text = "・・・。"},
+		};
+	else
+		__talks[talkNames[7]] = {
+			[1] = {img = "lexiper", title = "歴史学者", text = "え？" .. tokenImg .. "をお持ちでない？（笑）"},
+			[2] = {img = "lexiper", title = "歴史学者", text = "・・・。{nl}この口上が通じる方が、どれほど生き残っているのでしょうか・・・。"},
+		};
+	end
+
+	__talks[talkNames[8]] = {
+		[1] = {img = "vakarine", title = "女神ヴァカリネ", text = "戻りましたか、救済者。"},
+		[2] = {img = "vakarine", title = "女神ヴァカリネ", text = "ディオニスですか？{nl}ええ、あの子なら元気になりましたよ。"},
+		[3] = {img = "vakarine", title = "女神ヴァカリネ", text = "ところで、最近ホーバークの霊魂の欠片が少し減っている気がします。{nl}気のせいだといいのですが・・・。"},	
+		[4] = {img = "vakarine", title = "女神ヴァカリネ", text = "では、またお会いしましょう。"},
+	};
+
+	__talks[talkNames[9]] = {
+		[1] = {img = "vakarine", title = "女神ヴァカリネ", text = "戻りましたか、救済者。"},
+		[2] = {img = "vakarine", title = "女神ヴァカリネ", text = "クポルからの報告で知ったのですが、何故か私の評判が下がっているそうです。"},
+		[3] = {img = "vakarine", title = "紐神様", text = "曰く、 \" またヴァカリネか・・・ \" と。"},
+		[4] = {img = "vakarine", title = "女神ヴァカリネ", text = "私には心当たりが全く無いのですが、何かご存知ですか？"},
+		[5] = {img = "vakarine", title = "女神ヴァカリネ", text = "一体誰がこんな噂を・・・。"},
+	};
+
+	__talks[talkNames[10]] = {
+		[1] = {img = "blackman", title = "注視者", text = "・・・。"},
+		[2] = {img = "blackman", title = "注視者", text = "忘れるな、私は常に貴様を見ているぞ。"},
+		[3] = {img = "", title = "啓示者ちゃん", text = "うぅ～い？"},
+		[4] = {img = "blackman", title = "注視者", text = "・・・。"},
+	};
+
+	__talks[talkNames[11]] = {
+		[1] = {img = "gabija", title = "女神ガビヤ", text = "あっ、救済者。"},
+		[2] = {img = "gabija", title = "女神ガビヤ", text = "グリタを知りませんか？{nl}あの子ったら、また人の姿でどこかに行ってしまったらしくて・・・。"},
+		[3] = {img = "gabija", title = "女神ガビヤ", text = "もし見かけたら、塔に戻るように言ってくださいね。"},
+	};
+
+	__talks[talkNames[12]] = {
+		[1] = {img = "worpat", title = "ポイズンシューターマスター", text = "あら、啓示者さん、こんにちは。"},
+		[2] = {img = "worpat", title = "ポイズンシューターマスター", text = "なんだか、ポイズンシューターの人口が減ってる気がするの。"},
+		[3] = {img = "worpat", title = "ポイズンシューターマスター", text = "毒ってとっても強いんだよ？{nl}でも、最近なんだか毒が効果を発揮していないような・・・。"},
+		[4] = {img = "worpat", title = "ポイズンシューターマスター", text = "プレイグドクターマスターにでも相談してみようかしら？"},
+	};
+end
+
+function TOKENNOTICE_DLGSHOW(remainSec)
+
+	if DLGTALK_SHOW == nill then
+		return;
+	end
+
+	local index = random(1, #talkNames);
+
+	if index == 2 then
+		imcSound.PlayMusic("m_boss_scenario2", 1);
+	elseif index >= 5 then
+		imcSound.PlayMusic("m_boss_scenario", 1);
+	end
+
+	SetTextToken(remainSec);
+	--log("random test laoded:" .. math.random(5));
+	local talkName = talkNames[index];
+	DLGTALK_SHOW(talkName);
 end
